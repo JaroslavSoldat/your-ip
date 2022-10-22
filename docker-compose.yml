@@ -1,0 +1,28 @@
+version: '3.5'
+
+services:
+  proxy:
+    build:
+      context: proxy
+    environment:
+      - UPSTREAM_URL=http://web:3001
+    ports:
+      - "8080:80"
+
+  web:
+    build:
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3001
+    ports:
+      - "8081:3001"
+
+  fake-server:
+    environment:
+      - PORT=3001
+    ports:
+      - "3001:3001"
+    build:
+      dockerfile: Dockerfile.fake-server
+    profiles:
+      - test
