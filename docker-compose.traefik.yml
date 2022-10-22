@@ -6,15 +6,14 @@ services:
     build:
       dockerfile: Dockerfile
     environment:
-      - PORT=3001
-    ports:
-      - "80:3001"
+      - PORT=3000
     networks:
       - dmz
     labels:
       - traefik.enable=true
-      - traefik.http.routers.vysvedceni.entrypoints=websecure
-      - traefik.http.routers.vysvedceni.rule=Host(`vysvedceni.zschyne.cz`)
+      - traefik.http.routers.your-ip.entrypoints=websecure
+      - traefik.http.routers.your-ip.rule=Host(`vysvedceni.zschyne.cz`)
+      - traefik.http.services.hello.loadbalancer.server.port=3000
 
 networks:
   dmz:
